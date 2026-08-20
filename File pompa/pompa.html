@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Pompa Lobe</title>
+<style>
+  :root{
+    --bg: #12181c;
+    --panel: #1b2328;
+    --steel: #4a5a63;
+    --steel-light: #7c8f99;
+    --accent: #e8a33d;
+    --accent-dim: #8a611f;
+    --text: #eef2f3;
+    --text-dim: #9fb0b6;
+    --line: #2c363c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+  body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: 20px 16px 60px;
+  }
+
+  /* Header */
+  .header{
+    width:100%;
+    max-width: 720px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 18px;
+  }
+  .eyebrow{
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .title{
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-top: 2px;
+  }
+  .clock{
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align:right;
+    line-height: 1.4;
+  }
+  .clock span{ display:block; }
+  .clock .time{ color: var(--text); font-size: 15px; font-weight:600; }
+
+  /* Video */
+  .stage{
+    width: 100%;
+    max-width: 720px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  video{
+    width: 100%;
+    display:block;
+    background: #000;
+    aspect-ratio: 16/9;
+  }
+  .now-playing{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.02em;
+  }
+  .now-playing .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--steel-light);
+    flex-shrink:0;
+  }
+  .now-playing.active .dot{
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232,163,61,0.18);
+  }
+  .now-playing .label{ color: var(--text); font-weight:600; }
+
+  /* Buttons */
+  .picker{
+    width: 100%;
+    max-width: 720px;
+    margin-top: 20px;
+  }
+  .picker-label{
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .btn-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  @media (min-width: 600px){
+    .btn-grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+  .pump-btn{
+    position:relative;
+    text-align:left;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+    color: var(--text);
+    font-family: inherit;
+  }
+  .pump-btn:hover{
+    border-color: var(--steel-light);
+  }
+  .pump-btn:active{
+    transform: scale(0.98);
+  }
+  .pump-btn.selected{
+    border-color: var(--accent);
+    background: linear-gradient(180deg, rgba(232,163,61,0.08), rgba(232,163,61,0.02));
+  }
+  .pump-code{
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    font-weight:700;
+    display:block;
+    margin-bottom: 4px;
+  }
+  .pump-name{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .pump-time{
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hint{
+    max-width: 720px;
+    width:100%;
+    margin-top: 22px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    border-left: 2px solid var(--line);
+    padding-left: 12px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="eyebrow">Panduan Servis</div>
+      <div class="title">Pompa Lobe — Video Referensi</div>
+    </div>
+    <div class="clock">
+      <span>Diakses</span>
+      <span class="time" id="clockTime">--:--:--</span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <video id="video" controls playsinline>
+      <!-- GANTI src ini dengan file video kamu -->
+      <source src="video-pompa.mp4" type="video/mp4">
+      Browser kamu tidak mendukung tag video.
+    </video>
+    <div class="now-playing" id="nowPlaying">
+      <span class="dot"></span>
+      <span>Pilih salah satu jenis pompa di bawah untuk mulai</span>
+    </div>
+  </div>
+
+  <div class="picker">
+    <div class="picker-label">Pilih jenis pompa</div>
+    <div class="btn-grid" id="btnGrid">
+      <!-- tombol dibuat otomatis lewat JS dari data PUMPS di bawah -->
+    </div>
+  </div>
+
+  <div class="hint">
+    Timestamp diambil otomatis dari waktu HP/komputer kamu saat halaman dibuka.
+    Video akan lompat ke bagian sesuai pompa yang dipilih lalu langsung diputar.
+  </div>
+
+<script>
+  // ======================================================
+  // KONFIGURASI — UBAH BAGIAN INI SESUAI KEBUTUHAN
+  // ======================================================
+
+  // 1) Ganti path video di tag <source> di atas (cari "video-pompa.mp4")
+
+  // 2) Atur timestamp mulai (dalam DETIK) untuk tiap pompa di bawah ini
+  const PUMPS = [
+    {
+      code: "TIPE 1",
+      name: "Helical Tri Wing Lobe",
+      startSeconds: 17      // <-- ganti sesuai detik ke berapa di video
+    },
+    {
+      code: "TIPE 2",
+      name: "Bi Wing Rotor Lobe",
+      startSeconds: 38.5     // <-- ganti sesuai detik ke berapa di video
+    },
+    {
+      code: "TIPE 3",
+      name: "Single Wing Rotor Lobe",
+      startSeconds: 61    // <-- ganti sesuai detik ke berapa di video
+    }
+  ];
+
+  // ======================================================
+  // LOGIKA — tidak perlu diubah
+  // ======================================================
+
+  function formatTime(sec){
+    const m = Math.floor(sec/60);
+    const s = Math.floor(sec%60).toString().padStart(2,'0');
+    return `${m}:${s}`;
+  }
+
+  const grid = document.getElementById('btnGrid');
+  const video = document.getElementById('video');
+  const nowPlaying = document.getElementById('nowPlaying');
+
+  PUMPS.forEach((pump, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'pump-btn';
+    btn.innerHTML = `
+      <span class="pump-code">${pump.code}</span>
+      <span class="pump-name">${pump.name}</span>
+      <span class="pump-time">mulai ${formatTime(pump.startSeconds)}</span>
+    `;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pump-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      video.currentTime = pump.startSeconds;
+      video.play();
+
+      nowPlaying.classList.add('active');
+      nowPlaying.innerHTML = `<span class="dot"></span><span>Sedang diputar: <span class="label">${pump.name}</span></span>`;
+
+      // Waktu akses tercatat di log ini juga (opsional, bisa dihapus)
+      console.log(`Dipilih: ${pump.name} pada ${new Date().toLocaleString('id-ID')}`);
+    });
+    grid.appendChild(btn);
+  });
+
+  // Jam waktu akses (real-time, waktu lokal perangkat)
+  function updateClock(){
+    const now = new Date();
+    document.getElementById('clockTime').textContent =
+      now.toLocaleString('id-ID', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
