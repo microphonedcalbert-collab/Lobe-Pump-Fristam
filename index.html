@@ -41,6 +41,18 @@
     border-bottom: 1px solid #0055a6;
     margin-bottom: 18px;
   }
+  .header-left{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+  .logo{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
   .eyebrow{
     font-size: 11px;
     letter-spacing: 0.14em;
@@ -180,9 +192,12 @@
 <body>
 
   <div class="header">
-    <div>
-      <div class="eyebrow">Pompa FL</div>
-      <div class="title">Pompa FL — Video Referensi</div>
+    <div class="header-left">
+      <img src="logo.png" alt="Logo" class="logo">
+      <div>
+        <div class="eyebrow">Pompa FL</div>
+        <div class="title">Pompa FL — Video Referensi</div>
+      </div>
     </div>
     <div class="clock">
       <span>Diakses</span>
