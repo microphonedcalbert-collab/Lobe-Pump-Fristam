@@ -6,15 +6,14 @@
 <title>Panduan Pompa Lobe</title>
 <style>
   :root{
-    --bg: #ffffff;
-    --panel: #ffffff;
-    --steel: #0055a6;
-    --steel-light: #0055a6;
+    --bg: #e6edf5;
     --accent: #0055a6;
     --accent-dim: #003b73;
     --text: #0055a6;
-    --text-dim: #0055a6;
-    --line: #cfe0f2;
+    --text-dim: #4d7fb0;
+
+    --shadow-light: #ffffff;
+    --shadow-dark: #c3ccd9;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{
@@ -27,7 +26,27 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding: 20px 16px 60px;
+    padding: 28px 16px 60px;
+  }
+
+  /* Reusable neomorphic surfaces */
+  .raised{
+    background: var(--bg);
+    box-shadow:
+      8px 8px 16px var(--shadow-dark),
+      -8px -8px 16px var(--shadow-light);
+  }
+  .raised-sm{
+    background: var(--bg);
+    box-shadow:
+      4px 4px 8px var(--shadow-dark),
+      -4px -4px 8px var(--shadow-light);
+  }
+  .pressed{
+    background: var(--bg);
+    box-shadow:
+      inset 4px 4px 8px var(--shadow-dark),
+      inset -4px -4px 8px var(--shadow-light);
   }
 
   /* Header */
@@ -36,21 +55,30 @@
     max-width: 720px;
     display:flex;
     justify-content:space-between;
-    align-items:baseline;
-    padding-bottom: 14px;
-    border-bottom: 1px solid #0055a6;
-    margin-bottom: 18px;
+    align-items:center;
+    padding: 18px 22px;
+    border-radius: 20px;
+    margin-bottom: 22px;
   }
   .header-left{
     display:flex;
     align-items:center;
-    gap: 12px;
+    gap: 14px;
+  }
+  .logo-wrap{
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 4px;
+    flex-shrink: 0;
   }
   .logo{
-    width: 44px;
-    height: 44px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    flex-shrink: 0;
     object-fit: cover;
   }
   .eyebrow{
@@ -58,10 +86,10 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--accent);
-    font-weight: 600;
+    font-weight: 700;
   }
   .title{
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.01em;
     margin-top: 2px;
@@ -69,21 +97,26 @@
   }
   .clock{
     font-variant-numeric: tabular-nums;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-dim);
     text-align:right;
     line-height: 1.4;
+    padding: 10px 14px;
+    border-radius: 12px;
   }
   .clock span{ display:block; }
-  .clock .time{ color: var(--text); font-size: 15px; font-weight:600; }
+  .clock .time{ color: var(--text); font-size: 14px; font-weight:700; margin-top: 2px; }
 
   /* Video */
   .stage{
     width: 100%;
     max-width: 720px;
-    background: var(--panel);
-    border: 1px solid #0055a6;
-    border-radius: 10px;
+    border-radius: 22px;
+    overflow: hidden;
+    padding: 10px;
+  }
+  .video-inner{
+    border-radius: 16px;
     overflow: hidden;
   }
   video{
@@ -95,41 +128,47 @@
   .now-playing{
     display:flex;
     align-items:center;
-    gap:8px;
-    padding: 10px 14px;
+    gap:10px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    border-radius: 12px;
     font-size: 12px;
     color: var(--text-dim);
-    border-top: 1px solid #0055a6;
     letter-spacing: 0.02em;
   }
   .now-playing .dot{
-    width:7px; height:7px; border-radius:50%;
-    background: var(--steel-light);
+    width:9px; height:9px; border-radius:50%;
+    background: var(--bg);
+    box-shadow:
+      inset 2px 2px 4px var(--shadow-dark),
+      inset -2px -2px 4px var(--shadow-light);
     flex-shrink:0;
   }
   .now-playing.active .dot{
     background: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,85,166,0.18);
+    box-shadow: 0 0 0 4px rgba(0,85,166,0.15);
   }
-  .now-playing .label{ color: var(--text); font-weight:600; }
+  .now-playing .label{ color: var(--text); font-weight:700; }
 
   /* Buttons */
   .picker{
     width: 100%;
     max-width: 720px;
-    margin-top: 20px;
+    margin-top: 26px;
   }
   .picker-label{
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--text-dim);
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    margin-left: 4px;
   }
   .btn-grid{
     display:grid;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 16px;
   }
   @media (min-width: 600px){
     .btn-grid{ grid-template-columns: repeat(3, 1fr); }
@@ -137,81 +176,100 @@
   .pump-btn{
     position:relative;
     text-align:left;
-    background: var(--panel);
-    border: 1px solid #0055a6;
-    border-radius: 8px;
-    padding: 14px 16px;
+    border: none;
+    border-radius: 18px;
+    padding: 18px 20px;
     cursor: pointer;
-    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+    transition: box-shadow 0.15s ease, transform 0.1s ease;
     color: var(--text);
     font-family: inherit;
-  }
-  .pump-btn:hover{
-    border-color: var(--steel-light);
   }
   .pump-btn:active{
     transform: scale(0.98);
   }
   .pump-btn.selected{
-    border-color: var(--accent);
-    background: linear-gradient(180deg, rgba(0,85,166,0.08), rgba(0,85,166,0.02));
+    box-shadow:
+      inset 4px 4px 8px var(--shadow-dark),
+      inset -4px -4px 8px var(--shadow-light);
+  }
+  .pump-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .pump-btn.selected .pump-icon{
+    background: var(--accent);
+    color: #fff;
+    box-shadow: none;
   }
   .pump-code{
-    font-size: 11px;
+    font-size: 10px;
     color: var(--accent);
     letter-spacing: 0.1em;
-    font-weight:700;
+    font-weight:800;
     display:block;
     margin-bottom: 4px;
   }
   .pump-name{
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.3;
     color: var(--text);
   }
   .pump-time{
     font-size: 11px;
     color: var(--text-dim);
-    margin-top: 6px;
+    margin-top: 8px;
     font-variant-numeric: tabular-nums;
+    font-weight: 600;
   }
 
   .hint{
     max-width: 720px;
     width:100%;
-    margin-top: 22px;
+    margin-top: 26px;
+    padding: 16px 20px;
+    border-radius: 16px;
     font-size: 12px;
     color: var(--text-dim);
     line-height: 1.6;
-    border-left: 1px solid #0055a6;
-    padding-left: 12px;
   }
 </style>
 </head>
 <body>
 
-  <div class="header">
+  <div class="header raised">
     <div class="header-left">
-      <img src="logo.png" alt="Logo" class="logo">
+      <div class="logo-wrap raised-sm">
+        <img src="logo.png" alt="Logo" class="logo">
+      </div>
       <div>
         <div class="eyebrow">Pompa FL</div>
         <div class="title">Pompa FL — Video Referensi</div>
       </div>
     </div>
-    <div class="clock">
+    <div class="clock pressed">
       <span>Diakses</span>
       <span class="time" id="clockTime">--:--:--</span>
     </div>
   </div>
 
-  <div class="stage">
-    <video id="video" controls playsinline>
-      <!-- GANTI src ini dengan file video kamu -->
-      <source src="File%20pompa/video-pompa.mp4" type="video/mp4">
-      Browser kamu tidak mendukung tag video.
-    </video>
-    <div class="now-playing" id="nowPlaying">
+  <div class="stage raised">
+    <div class="video-inner">
+      <video id="video" controls playsinline>
+        <!-- GANTI src ini dengan file video kamu -->
+        <source src="File%20pompa/video-pompa.mp4" type="video/mp4">
+        Browser kamu tidak mendukung tag video.
+      </video>
+    </div>
+    <div class="now-playing pressed" id="nowPlaying">
       <span class="dot"></span>
       <span>Pilih salah satu jenis pompa di bawah untuk mulai</span>
     </div>
@@ -224,7 +282,7 @@
     </div>
   </div>
 
-  <div class="hint">
+  <div class="hint pressed">
     Timestamp diambil otomatis dari waktu HP/komputer kamu saat halaman dibuka.
     Video akan lompat ke bagian sesuai pompa yang dipilih lalu langsung diputar.
   </div>
@@ -271,14 +329,18 @@
 
   PUMPS.forEach((pump, idx) => {
     const btn = document.createElement('button');
-    btn.className = 'pump-btn';
+    btn.className = 'pump-btn raised-sm';
     btn.innerHTML = `
       <span class="pump-code">${pump.code}</span>
       <span class="pump-name">${pump.name}</span>
       <span class="pump-time">mulai ${formatTime(pump.startSeconds)}</span>
     `;
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.pump-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.pump-btn').forEach(b => {
+        b.classList.remove('selected');
+        b.classList.add('raised-sm');
+      });
+      btn.classList.remove('raised-sm');
       btn.classList.add('selected');
 
       video.currentTime = pump.startSeconds;
