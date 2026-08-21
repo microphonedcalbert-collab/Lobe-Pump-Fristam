@@ -209,14 +209,6 @@
     color: #fff;
     box-shadow: none;
   }
-  .pump-code{
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    font-weight:800;
-    display:block;
-    margin-bottom: 4px;
-  }
   .pump-name{
     font-size: 14px;
     font-weight: 700;
@@ -276,7 +268,7 @@
   </div>
 
   <div class="picker">
-    <div class="picker-label">Pilih jenis pompa</div>
+    <div class="picker-label">Pilih jenis rotor</div>
     <div class="btn-grid" id="btnGrid">
       <!-- tombol dibuat otomatis lewat JS dari data PUMPS di bawah -->
     </div>
@@ -297,17 +289,14 @@
   // 2) Atur timestamp mulai (dalam DETIK) untuk tiap pompa di bawah ini
   const PUMPS = [
     {
-      code: "TIPE 1",
       name: "Twisted Tri-Wing Rotors",
       startSeconds: 11      // <-- ganti sesuai detik ke berapa di video
     },
     {
-      code: "TIPE 2",
       name: "Bi Wing/Two Wing Rotors",
       startSeconds: 31     // <-- ganti sesuai detik ke berapa di video
     },
     {
-      code: "TIPE 3",
       name: "D Lobe/One Wing Rotors",
       startSeconds: 50    // <-- ganti sesuai detik ke berapa di video
     }
@@ -331,7 +320,6 @@
     const btn = document.createElement('button');
     btn.className = 'pump-btn raised-sm';
     btn.innerHTML = `
-      <span class="pump-code">${pump.code}</span>
       <span class="pump-name">${pump.name}</span>
       <span class="pump-time">mulai ${formatTime(pump.startSeconds)}</span>
     `;
