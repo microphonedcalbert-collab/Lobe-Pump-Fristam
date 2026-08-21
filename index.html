@@ -6,15 +6,15 @@
 <title>Panduan Pompa Lobe</title>
 <style>
   :root{
-    --bg: #12181c;
-    --panel: #1b2328;
-    --steel: #4a5a63;
-    --steel-light: #7c8f99;
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --steel: #0055a6;
+    --steel-light: #0055a6;
     --accent: #0055a6;
-    --accent-dim: #0055a6;
-    --text: #eef2f3;
-    --text-dim: #9fb0b6;
-    --line: #2c363c;
+    --accent-dim: #003b73;
+    --text: #0055a6;
+    --text-dim: #0055a6;
+    --line: #cfe0f2;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{
@@ -53,6 +53,7 @@
     font-weight: 700;
     letter-spacing: -0.01em;
     margin-top: 2px;
+    color: var(--text);
   }
   .clock{
     font-variant-numeric: tabular-nums;
@@ -96,7 +97,7 @@
   }
   .now-playing.active .dot{
     background: var(--accent);
-    box-shadow: 0 0 0 3px rgba(232,163,61,0.18);
+    box-shadow: 0 0 0 3px rgba(0,85,166,0.18);
   }
   .now-playing .label{ color: var(--text); font-weight:600; }
 
@@ -141,7 +142,7 @@
   }
   .pump-btn.selected{
     border-color: var(--accent);
-    background: linear-gradient(180deg, rgba(232,163,61,0.08), rgba(232,163,61,0.02));
+    background: linear-gradient(180deg, rgba(0,85,166,0.08), rgba(0,85,166,0.02));
   }
   .pump-code{
     font-size: 11px;
@@ -155,6 +156,7 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 1.3;
+    color: var(--text);
   }
   .pump-time{
     font-size: 11px;
